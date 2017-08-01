@@ -6,72 +6,110 @@ class CommandLineInterfaceModel
   end
 
   def gets_user_input
-    puts "Enter the name of an Actor, Movie or Character:"
+    puts "Please enter the name of an Actor, character, or movie:"
     #what could we put here to allow a user to type a response?
-    actor_input = gets.chomp
+    input = gets.chomp
   end
 
-  def find_actor(first_name, last_name)
-    actor = Actor.find_by(first_name: first_name, last_name: last_name)
-     if !Actor.all.include?(actor)
-       try_again
-     elsif Actor.all.include?(actor)
-       puts "#{first_name} #{last_name} is in our database! Would you like to see a list of #{first_name} #{last_name}'s movies?"
+  # def search(term, first_name, last_name, name, title)
+  #   if Actor.all.include?(term)
+  #     find_actor(first_name, last_name)
+  #   elsif Movie.all.include?(title)
+  #     find_movie(title)
+  #   elsif Character.all.include?(name)
+  #     find_character(name)
+  #   else
+  #     gets_user_input
+  #   end
+  # end
+
+  def find_actor(name)
+    actor = Actor.find_by(name: name)
+     if actor == nil
+       try_again_actor
+     else
+       puts "#{name} is in our database! Would you like to see a list of #{name}'s movies?"
        gets_user_input_movies(actor)
      end
       #binding.pry
   end
 
-  def try_again
+  def find_movies(title)
+    movie = Movie.find_by(title: title)
+    if movie == nil
+      try_again_movie
+    elsif
+      puts movie.title
+  end
+end
+
+def find_characters (name)
+  character = Character.find_by(name: name)
+  if character == nil
+    try_again_character
+  elsif
+    puts character.name
+  end
+end
+
+  def try_again_character
+    puts "That movie is not in our database. Please check spelling or "
+    input = gets_user_input
+    find_characters(input)
+  end
+
+  def try_again_movie
+    puts "That movie is not in our database. Please check spelling or "
+    input = gets_user_input
+    find_movies(input)
+  end
+
+  def try_again_actor
     puts "That actor is not in our database. Please check spelling or "
-    input = gets_user_input.split(" ")
-    find_actor(input[0], input[1])
+    name = gets_user_input
+    find_actor(name)
   end
 
   def gets_user_input_movies(actor)
     puts "Please Enter Yes or No:"
     movie_input = gets.chomp
     if movie_input == "Yes"
-      puts "Here's a list of #{actor.full_name}'s movies: "
+      puts "Here's a list of #{actor.name}'s movies: "
       find_all_movies_from_actor(actor)
-      puts "Would you like to see a list of #{actor.full_name}' characters?"
+      puts "Would you like to see a list of #{actor.name}' characters?"
       gets_user_input_characters(actor)
     elsif movie_input == "No"
-      puts "Ok."
+      puts "Ok. Anything else we can help you with?"
+      exit_or_continue
+    else
+      gets_user_input_movies(actor)
       # puts find_movies(self)
     end
   end
 
   def find_all_movies_from_actor(actor)
-    # char = Character.all.find do |character|
-    #   character.actor_id == actor.id
-    # end
-    # char.movie_id
-    # character = find_all_characters_from_actor(actor)
     actor.movies.each do |movie|
       puts movie.title
     end
-    # find_all_characters_from_actor(actor)
-    # binding.pry
   end
-  # binding.pry
+
 
   def gets_user_input_characters(actor)
     puts "Please Enter Yes or No:"
     character_input = gets.chomp
     if character_input == "Yes"
-      puts "Here's a list of #{actor.full_name}'s characters: "
+      puts "Here's a list of #{actor.name}'s characters: "
       find_all_characters_from_actor(actor)
     elsif character_input == "No"
-      puts "Ok."
+      puts "Ok. Anything else we can help you with?"
+      exit_or_continue
+    else
+      gets_user_input_characters(actor)
       # puts find_movies(self)
     end
   end
 
   def find_all_characters_from_actor(actor)
-    # if Character.actor_id == actor.id
-    #   character = Character.name
-    # end
     actor.characters.each do |character|
       puts character.name
     end
@@ -86,14 +124,18 @@ class CommandLineInterfaceModel
       run
     elsif user_input == "No"
       puts "Thanks for using the MovieActorCharacter database. Take care!"
+    else
+      exit_or_continue
     end
   end
 
-
   def run
     greet
-    input = gets_user_input.split(" ")
-    find_actor(input[0], input[1])
+    # input = gets_user_input.split(" ")
+    # find_actor(input[0], input[1])
+    input = gets_user_input
+    find_actor(input)
+    # search(term, first_name, last_name, name, title)
   end
 
 end

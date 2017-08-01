@@ -1,3 +1,10 @@
+# require 'rest-client'
+# require 'json'
+#
+# url = 'https://imdb.p.mashape.com/movie'
+# response = RestClient.get(url)
+# JSON.parse(response)
+
 
 #Movies
 departed = Movie.create(title: "The Departed")
@@ -10,12 +17,12 @@ dodgeball = Movie.create(title: "Dodgeball")
 her = Movie.create(title: "Her")
 
 #Actors
-brad_pitt = Actor.create(first_name: "Brad", last_name: "Pitt")
-leo_dicaprio = Actor.create(first_name: "Leonardo", last_name: "DiCaprio")
-mel_gibson = Actor.create(first_name: "Mel", last_name: "Gibson")
-scarlet_johannson = Actor.create(first_name: "Scarlet", last_name: "Johannson")
-ben_stiller = Actor.create(first_name: "Ben", last_name: "Stiller")
-vince_vaughn = Actor.create(first_name: "Vince", last_name: "Vaughn")
+brad_pitt = Actor.create(name: "Brad Pitt")
+leo_dicaprio = Actor.create(name: "Leonardo DiCaprio")
+mel_gibson = Actor.create(name: "Mel Gibson")
+scarlet_johannson = Actor.create(name: "Scarlet Johannson")
+ben_stiller = Actor.create(name: "Ben Stiller")
+vince_vaughn = Actor.create(name: "Vince Vaughn")
 
 #Characters
 billy_costigan = Character.create(name: "Billy Costigan", actor_id: leo_dicaprio.id, movie_id: departed.id)
