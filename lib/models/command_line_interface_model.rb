@@ -1,4 +1,5 @@
 require 'pry'
+# require 'colorize'
 class CommandLineInterfaceModel
 
 
@@ -8,7 +9,7 @@ class CommandLineInterfaceModel
 
 
   def gets_user_input
-    puts "Please enter the name of an actor, character, or movie:"
+    puts "Please enter the name of an actor, character, or movie. Names are case sensitive. For instance, type Leonardo DiCaprio with appropriate capital letters :)"
     #what could we put here to allow a user to type a response?
     input = gets.chomp
   end
@@ -49,14 +50,14 @@ class CommandLineInterfaceModel
 
 
   def gets_user_input_actors_from_characters(character)
-   puts "Please Enter Yes or No:"
-   charac_input = gets.chomp
-   if charac_input == "Yes"
+   puts "Please enter yes or no:"
+   charac_input = gets.chomp.downcase
+   if charac_input == "yes"
      puts "Here is who played that role:"
      print_actor_from_character(character)
      puts "Would you like to see the movie for this character?"
      print_movies_from_character(character)
-   elsif charac_input == "No"
+   elsif charac_input == "no"
      puts "Ok. Anything else we can help you with?"
      exit_or_continue
    else
@@ -67,14 +68,14 @@ class CommandLineInterfaceModel
 
 
  def gets_user_input_movies(actor)
-    puts "Please Enter Yes or No:"
-    movie_input = gets.chomp
-    if movie_input == "Yes"
+    puts "Please enter yes or no:"
+    movie_input = gets.chomp.downcase
+    if movie_input == "yes"
       puts "Here's a list of #{actor.name}'s movies: "
       print_all_movies_from_actor(actor)
       puts "Would you like to see a list of #{actor.name}'s characters?"
       gets_user_input_characters(actor)
-    elsif movie_input == "No"
+    elsif movie_input == "no"
       puts "Ok. Anything else we can help you with?"
       exit_or_continue
     else
@@ -83,15 +84,15 @@ class CommandLineInterfaceModel
   end
 
   def get_cast_list_from_movie(movie)
-    puts "Please Enter Yes or No:"
-    cast_input = gets.chomp
-    if cast_input == "Yes"
+    puts "Please enter yes or no:"
+    cast_input = gets.chomp.downcase
+    if cast_input == "yes"
       puts "Here's the cast list for #{movie}: "
       print_all_characters_from_movie(movie)
       puts "Would you like to see the actors for this movie?"
       gets_actors_for_movie(movie)
       # gets_user_input_characters(actor)
-    elsif cast_input == "No"
+    elsif cast_input == "no"
       puts "Ok. Anything else we can help you with?"
       exit_or_continue
     else
@@ -101,12 +102,12 @@ class CommandLineInterfaceModel
   end
 
   def print_movies_from_character(character)
-    input = gets.chomp
-    if input == "Yes"
+    input = gets.chomp.downcase
+    if input == "yes"
       puts character.movie.title
       puts "Awesome! Anything else we can help you with?"
       exit_or_continue
-    elsif input == "No"
+    elsif input == "no"
       puts "Ok. Anything else we can help you with?"
       exit_or_continue
     else
@@ -142,12 +143,12 @@ class CommandLineInterfaceModel
   # def find_all
 
   def gets_actors_for_movie(movie)
-    puts "Please Enter Yes or No:"
-    character_input = gets.chomp
-    if character_input == "Yes"
+    puts "Please enter yes or no:"
+    character_input = gets.chomp.downcase
+    if character_input == "yes"
       puts "Here's a list of actors for #{movie.title}: "
       find_all_actors_from_movie(movie)
-    elsif character_input == "No"
+    elsif character_input == "no"
       puts "Ok. Anything else we can help you with?"
       exit_or_continue
     else
@@ -158,12 +159,12 @@ class CommandLineInterfaceModel
 
 
   def gets_user_input_characters(actor)
-    puts "Please Enter Yes or No:"
-    character_input = gets.chomp
-    if character_input == "Yes"
+    puts "Please enter yes or no:"
+    character_input = gets.chomp.downcase
+    if character_input == "yes"
       puts "Here's a list of #{actor.name}'s characters: "
       find_all_characters_from_actor(actor)
-    elsif character_input == "No"
+    elsif character_input == "no"
       puts "Ok. Anything else we can help you with?"
       exit_or_continue
     else
@@ -189,11 +190,11 @@ class CommandLineInterfaceModel
   end
 
   def exit_or_continue
-    puts "Please Enter Yes or No:"
-    user_input = gets.chomp
-    if user_input == "Yes"
+    puts "Please enter yes or no:"
+    user_input = gets.chomp.downcase
+    if user_input == "yes"
       run
-    elsif user_input == "No"
+    elsif user_input == "no"
       puts "We're sorry to see you go. Thank you for using the HasManyMedia database for your media query needs!"
     else
       exit_or_continue
@@ -212,9 +213,9 @@ class CommandLineInterfaceModel
     movie = Movie.find_by(title: input)
     character = Character.find_by(name: input)
     actor = Actor.find_by(name: input)
-    if actor != nil
+    if actor!= nil
       find_actor(input)
-    elsif movie != nil
+    elsif movie!= nil
       find_movies(input)
     elsif character != nil
       find_characters(input)
