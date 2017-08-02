@@ -8,27 +8,16 @@ class CommandLineInterfaceModel
 
 
   def gets_user_input
-    puts "Please enter the name of an Actor, character, or movie:"
+    puts "Please enter the name of an actor, character, or movie:"
     #what could we put here to allow a user to type a response?
     input = gets.chomp
   end
 
-  # def search(term, first_name, last_name, name, title)
-  #   if Actor.all.include?(term)
-  #     find_actor(first_name, last_name)
-  #   elsif Movie.all.include?(title)
-  #     find_movie(title)
-  #   elsif Character.all.include?(name)
-  #     find_character(name)
-  #   else
-  #     gets_user_input
-  #   end
-  # end
 
   def find_actor(name)
     actor = Actor.find_by(name: name)
      if actor == nil
-       try_again_actor
+       try_again
      else
        puts "#{name} is in our database! Would you like to see a list of #{name}'s movies?"
        gets_user_input_movies(actor)
@@ -36,57 +25,60 @@ class CommandLineInterfaceModel
       #binding.pry
   end
 
+
   def find_movies(title)
     movie = Movie.find_by(title: title)
     if movie == nil
-      try_again_movie
+      try_again
     else
       puts "#{movie.title} is in our database! Would you like to see a cast list for #{movie.title}?"
-      get_cast_list_from_movie(title)
+      get_cast_list_from_movie(movie)
+    end
   end
-end
 
-def find_characters (name)
+
+  def find_characters(name)
   character = Character.find_by(name: name)
-  if character == nil
-    try_again_character
-  elsif
-    puts character.name
-  end
-end
-
-  def try_again_character
-    puts "That movie is not in our database. Please check spelling or "
-    input = gets_user_input
-    find_characters(input)
+    if character == nil
+      try_again
+    else
+      puts "#{character.name} is in our database! Would you like to see which actor played #{character.name}?"
+      gets_user_input_actors_from_characters(character)
+    end
   end
 
-  def try_again_movie
-    puts "That movie is not in our database. Please check spelling or "
-    input = gets_user_input
-    find_movies(input)
-  end
 
-  def try_again_actor
-    puts "That actor is not in our database. Please check spelling or "
-    name = gets_user_input
-    find_actor(name)
-  end
+  def gets_user_input_actors_from_characters(character)
+   puts "Please Enter Yes or No:"
+   charac_input = gets.chomp
+   if charac_input == "Yes"
+     puts "Here is who played that role:"
+     print_actor_from_character(character)
+     puts "Would you like to see the movie for this character?"
+     print_movies_from_character(character)
+   elsif charac_input == "No"
+     puts "Ok. Anything else we can help you with?"
+     exit_or_continue
+   else
+     gets_user_input_actors_from_characters(character)
+     # puts find_movies(self)
+   end
+ end
 
-  def gets_user_input_movies(actor)
+
+ def gets_user_input_movies(actor)
     puts "Please Enter Yes or No:"
     movie_input = gets.chomp
     if movie_input == "Yes"
       puts "Here's a list of #{actor.name}'s movies: "
-      find_all_movies_from_actor(actor)
-      puts "Would you like to see a list of #{actor.name}' characters?"
+      print_all_movies_from_actor(actor)
+      puts "Would you like to see a list of #{actor.name}'s characters?"
       gets_user_input_characters(actor)
     elsif movie_input == "No"
       puts "Ok. Anything else we can help you with?"
       exit_or_continue
     else
       gets_user_input_movies(actor)
-      # puts find_movies(self)
     end
   end
 
@@ -95,8 +87,9 @@ end
     cast_input = gets.chomp
     if cast_input == "Yes"
       puts "Here's the cast list for #{movie}: "
-      find_all_characters_from_movie(movie)
-      # puts "Would you like to see a list of #{movie.title}' characters?"
+      print_all_characters_from_movie(movie)
+      puts "Would you like to see the actors for this movie?"
+      gets_actors_for_movie(movie)
       # gets_user_input_characters(actor)
     elsif cast_input == "No"
       puts "Ok. Anything else we can help you with?"
@@ -107,20 +100,61 @@ end
     end
   end
 
-  def find_all_characters_from_movie(movie)
+  def print_movies_from_character(character)
+    input = gets.chomp
+    if input == "Yes"
+      puts character.movie.title
+      puts "Awesome! Anything else we can help you with?"
+      exit_or_continue
+    elsif input == "No"
+      puts "Ok. Anything else we can help you with?"
+      exit_or_continue
+    else
+      print_movies_from_character(character)
+    end
+  end
+
+  def print_actor_from_character(character)
+    puts character.actor.name
+  end
+
+  def print_all_characters_from_movie(movie)
     movie.characters.each do |character|
       puts character.name
     end
-    binding.pry
+    # binding.pry
   end
 
-  def find_all_movies_from_actor(actor)
+  def print_all_movies_from_actor(actor)
     actor.movies.each do |movie|
       puts movie.title
     end
   end
 
+  def print_all_actors_from_movie(movie)
+    movie.actors.each do |actor|
+      puts actor.name
+    end
+  end
+
+
+
   # def find_all
+
+  def gets_actors_for_movie(movie)
+    puts "Please Enter Yes or No:"
+    character_input = gets.chomp
+    if character_input == "Yes"
+      puts "Here's a list of actors for #{movie.title}: "
+      find_all_actors_from_movie(movie)
+    elsif character_input == "No"
+      puts "Ok. Anything else we can help you with?"
+      exit_or_continue
+    else
+      gets_actors_for_movie(movie)
+      # puts find_movies(self)
+    end
+  end
 
 
   def gets_user_input_characters(actor)
@@ -138,11 +172,19 @@ end
     end
   end
 
+  def find_all_actors_from_movie(movie)
+    movie.actors.each do |actor|
+      puts actor.name
+    end
+    puts "Awesome! Anything else we can help you with?"
+    exit_or_continue
+  end
+
   def find_all_characters_from_actor(actor)
     actor.characters.each do |character|
       puts character.name
     end
-    puts "Awesome. Anything else we can help you with?"
+    puts "Awesome! Anything else we can help you with?"
     exit_or_continue
   end
 
@@ -152,24 +194,32 @@ end
     if user_input == "Yes"
       run
     elsif user_input == "No"
-      puts "Thanks for using the MovieActorCharacter database. Take care!"
+      puts "We're sorry to see you go. Thank you for using the HasManyMedia database for your media query needs!"
     else
       exit_or_continue
     end
   end
 
+  def try_again
+    puts "That information is not in our database. Please check spelling or "
+    name = gets_user_input
+    find_actor(name)
+  end
+
   def run
     greet
     input = gets_user_input
-    title = Movie.first.title
-    charname = Character.first.name
-    actorname = Actor.first.name
- if input == actorname
-    find_actor(input)
-  elsif input== title
-    find_movies(input)
-  elsif input == charname
-    find_characters(input)
+    movie = Movie.find_by(title: input)
+    character = Character.find_by(name: input)
+    actor = Actor.find_by(name: input)
+    if actor != nil
+      find_actor(input)
+    elsif movie != nil
+      find_movies(input)
+    elsif character != nil
+      find_characters(input)
+    else
+      try_again
     end
   end
 end
