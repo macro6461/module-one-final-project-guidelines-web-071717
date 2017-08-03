@@ -24,9 +24,6 @@ help = Movie.create(title: "The Help")
 fences = Movie.create(title: "Fences")
 equalizer = Movie.create(title: "The Equalizer")
 
-
-
-
 #Actors
 brad_pitt = Actor.create(name: "Brad Pitt")
 leo_dicaprio = Actor.create(name: "Leonardo DiCaprio")
@@ -41,8 +38,14 @@ kate_winslet = Actor.create(name: "Kate Winslet")
 octavia = Actor.create(name: "Octavia Spencer")
 viola = Actor.create(name: "Viola Davis")
 denzel = Actor.create(name: "Denzel Washington")
-
-
+christine_taylor = Actor.create(name: "Christine Taylor")
+rip_torn = Actor.create(name: "Rip Torn")
+justin_long= Actor.create(name: "Justin Long")
+alan_tudyk = Actor.create(name: "Alan Tudyk")
+missi_pyle = Actor.create(name: "Missi Pyle")
+hank_azaria = Actor.create(name: "Hank Azaria")
+chuck_norris= Actor.create(name: "Chuck Norris")
+david_hasselhoff = Actor.create(name: "David Hasselhoff")
 
 
 #Characters
@@ -67,6 +70,14 @@ minny = Character.create(name: "Minny Jackson", actor_id: octavia.id, movie_id: 
 rose_maxson = Character.create(name: "Rose Maxson", actor_id: viola.id, movie_id: fences.id)
 troy_maxson = Character.create(name: "Troy Maxson", actor_id: denzel.id, movie_id: fences.id)
 robert = Character.create(name: "Robert McCall", actor_id: denzel.id, movie_id: equalizer.id)
+kate_veatch = Character.create(name: "Kate Veatch", actor_id: christine_taylor.id, movie_id: dodgeball.id)
+patches_ohoulihan = Character.create(name: "Patches O'Houlihan", actor_id: rip_torn.id, movie_id: dodgeball.id)
+justin = Character.create(name: "Justin", actor_id: justin_long.id, movie_id: dodgeball.id)
+steve_the_pirate = Character.create(name: "Steve the Pirate", actor_id: alan_tudyk.id, movie_id: dodgeball.id)
+fran = Character.create(name: "Fran", actor_id: missi_pyle.id, movie_id: dodgeball.id)
+young_patches = Character.create(name: "Young Patches O'Houlihan", actor_id: hank_azaria.id, movie_id: dodgeball.id)
+chuck_norris_char= Character.create(name: "Chuck Norris", actor_id: chuck_norris.id, movie_id: dodgeball.id)
+german_coach = Character.create(name: "German Coach", actor_id: david_hasselhoff.id, movie_id: dodgeball.id)
 
 
 
