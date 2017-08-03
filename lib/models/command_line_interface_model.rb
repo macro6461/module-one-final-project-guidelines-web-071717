@@ -4,6 +4,15 @@ class CommandLineInterfaceModel
 
 
   def greet
+    puts "
+                  ██╗  ██╗ █████╗ ███████╗███╗   ███╗ █████╗ ███╗   ██╗██╗   ██╗███╗   ███╗███████╗██████╗ ██╗ █████╗
+                  ██║  ██║██╔══██╗██╔════╝████╗ ████║██╔══██╗████╗  ██║╚██╗ ██╔╝████╗ ████║██╔════╝██╔══██╗██║██╔══██╗
+                  ███████║███████║███████╗██╔████╔██║███████║██╔██╗ ██║ ╚████╔╝ ██╔████╔██║█████╗  ██║  ██║██║███████║
+                  ██╔══██║██╔══██║╚════██║██║╚██╔╝██║██╔══██║██║╚██╗██║  ╚██╔╝  ██║╚██╔╝██║██╔══╝  ██║  ██║██║██╔══██║
+                  ██║  ██║██║  ██║███████║██║ ╚═╝ ██║██║  ██║██║ ╚████║   ██║   ██║ ╚═╝ ██║███████╗██████╔╝██║██║  ██║
+                  ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝╚═╝  ╚═╝
+
+"
     puts "Welcome to the HasManyMedia database, the command line solution for your Movie, Actor and character finding needs! Can't remember what movie that character is from? Want to prove to your friends that you were totally right about what movie THAT actor was in? Did that actor REALLY play that character? Find out here!"
   end
 
