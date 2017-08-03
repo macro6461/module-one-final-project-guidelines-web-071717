@@ -177,7 +177,7 @@ class CommandLineInterfaceModel
     yes_or_no
     user_input = gets.chomp.downcase
     if user_input == "yes"
-      run
+      run_again
     elsif user_input == "no"
       exit_program
     else
